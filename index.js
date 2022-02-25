@@ -161,6 +161,8 @@ client.on('messageCreate', async message => {
     console.error(err);
     return;
   }
+  if (message.author.id == '424028935752515595')
+  message.channel.send('https://cdn.discordapp.com/attachments/752544235059937363/934120595925401650/video0.mp4')
   //done!
 });
 //troll stuff
