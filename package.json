@@ -21,6 +21,7 @@
     "googleapis": "^92.0.0",
     "install": "^0.13.0",
     "libsodium-wrappers": "^0.7.9",
+    "minecraft-server-util": "^5.2.9",
     "mongoose": "^6.1.4",
     "node-fetch": "^2.6.6",
     "npm": "^8.1.1",

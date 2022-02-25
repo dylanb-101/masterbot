@@ -9,6 +9,7 @@ const DisTube = require('distube');
 const { prefix } = require('./config.json');
 const { MessageEmbed } = require('discord.js');
 const { RepeatMode } = require('distube');
+const mc = require('minecraft-server-util');
 
 
 
@@ -69,11 +70,12 @@ client.on('interactionCreate', async interaction => {
 	if (!command) return;
 
 	try {
-		await command.execute(interaction, client, distube);
+		await command.execute(interaction, client, distube, mc);
 	} catch (error) {
 		console.error(error);
 		await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
 	}
+	
 });
 
 
@@ -161,8 +163,20 @@ client.on('messageCreate', async message => {
   }
   //done!
 });
+//troll stuff
 
+//if (message.author.id == '424028935752515595') {
+	//	message.channel.send('https://cdn.discordapp.com/attachments/752544235059937363/934120595925401650/video0.mp4');
+	//}
 });
+
+//mal dc
+
+//client.on('voiceStateUpdate', (newMember) => {
+//	if (newMember.id == '792557819537915954') {
+//		newMember.setChannel(null);
+//	}
+//});
 
 //make sure this is the last thing 
 client.login(token);
