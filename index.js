@@ -19,7 +19,7 @@ const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_
 
 const distube = new DisTube.default(client, {
 	nsfw: true,
-	searchSongs: "1"
+	searchSongs: 1
 });
 
 
