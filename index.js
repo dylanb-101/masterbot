@@ -18,7 +18,8 @@ const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_
 ] });
 
 const distube = new DisTube.default(client, {
-	nsfw: true
+	nsfw: true,
+	searchSongs: "1"
 });
 
 
@@ -162,7 +163,7 @@ client.on('messageCreate', async message => {
     return;
   }
   if (message.author.id == '424028935752515595')
-  message.channel.send('https://cdn.discordapp.com/attachments/752544235059937363/934120595925401650/video0.mp4')
+  message.channel.send('https://cdn.discordapp.com/attachments/752544235059937363/934120595925401650/video0.mp4');
   //done!
 });
 //troll stuff
