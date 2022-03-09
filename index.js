@@ -8,8 +8,6 @@ const channel = '791118442686185515';
 const DisTube = require('distube');
 const { prefix } = require('./config.json');
 const { MessageEmbed } = require('discord.js');
-const { RepeatMode } = require('distube');
-const mc = require('minecraft-server-util');
 
 
 
@@ -126,6 +124,18 @@ if (command === 'play') {
 } else if (command === 'loop' || command === 'l') {
 	const queue = distube.getQueue(message);
 	distube.setRepeatMode(queue);
+	const rptMode = () => {
+		let mode = queue.repeatMode;
+		if (mode == '0') {
+			return 'None!'
+		} else if (mode == '1') {
+			return 'Repeat current song!'
+		} else if (mode == '2') {
+			return 'Repeating the queue!'
+		} else {
+			return 'idk something tweakin the code';
+		}
+	};
 	message.channel.send(`🔁 Set loop mode to ${RepeatMode}`);
 }
 
