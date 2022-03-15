@@ -136,7 +136,7 @@ if (command === 'play') {
 			return 'idk something tweakin the code';
 		}
 	};
-	message.channel.send(`🔁 Set loop mode to ${RepeatMode}`);
+	message.channel.send(`🔁 Set loop mode to ${mode}`);
 }
 
 
