@@ -181,7 +181,7 @@ client.on('messageCreate', async message => {
 //if (message.author.id == '424028935752515595') {
 	//	message.channel.send('https://cdn.discordapp.com/attachments/752544235059937363/934120595925401650/video0.mp4');
 	//}
-if (message.author.id == '696515528252194856') {
+if (message.author.id == '372866325380595714') {
 	message.react('⬇️')
 }
 });
