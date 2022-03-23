@@ -8,8 +8,6 @@ const channel = '791118442686185515';
 const DisTube = require('distube');
 const { prefix } = require('./config.json');
 const { MessageEmbed } = require('discord.js');
-const { RepeatMode } = require('distube');
-const mc = require('minecraft-server-util');
 
 
 
@@ -126,7 +124,19 @@ if (command === 'play') {
 } else if (command === 'loop' || command === 'l') {
 	const queue = distube.getQueue(message);
 	distube.setRepeatMode(queue);
-	message.channel.send(`🔁 Set loop mode to ${RepeatMode}`);
+	const rptMode = () => {
+		let mode = queue.repeatMode;
+		if (mode == '0') {
+			return 'None!'
+		} else if (mode == '1') {
+			return 'Repeat current song!'
+		} else if (mode == '2') {
+			return 'Repeating the queue!'
+		} else {
+			return 'idk something tweakin the code';
+		}
+	};
+	message.channel.send(`🔁 Set loop mode to ${rptMode()}`);
 }
 
 
@@ -161,9 +171,9 @@ client.on('messageCreate', async message => {
   if (err) {
     console.error(err);
     return;
-  }
-  if (message.author.id == '424028935752515595')
-  message.channel.send('https://cdn.discordapp.com/attachments/752544235059937363/934120595925401650/video0.mp4');
+  } 
+//  if (message.author.id == '424028935752515595')
+//  message.channel.send('https://cdn.discordapp.com/attachments/752544235059937363/934120595925401650/video0.mp4');
   //done!
 });
 //troll stuff
@@ -171,6 +181,9 @@ client.on('messageCreate', async message => {
 //if (message.author.id == '424028935752515595') {
 	//	message.channel.send('https://cdn.discordapp.com/attachments/752544235059937363/934120595925401650/video0.mp4');
 	//}
+if (message.author.id == '372866325380595714') {
+	message.react('⬇️')
+}
 });
 
 //mal dc
