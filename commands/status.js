@@ -15,8 +15,7 @@ module.exports = {
 			.addChoice('playing', 'PLAYING')
       		.addChoice('competing', 'COMPETING'))
     .addStringOption((option) =>
-		option
-      .setName('status')
+		option.setName('status')
 			.setDescription('What do u want the status to be')
 			.setRequired(true)),  
 	async execute(interaction, client) {
