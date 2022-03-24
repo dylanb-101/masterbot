@@ -87,7 +87,7 @@ client.on('ready', function() {
 
 //distube start
 client.on('messageCreate', async message => {
-if (message.author.bot || !message.guild || !message.content.startsWith(prefix)) return;
+if (message.author.bot || !message.guild || !message.content.startsWith(prefix) || message.author.id == '741343008145801307') return;
 
 const args = message.content.slice(prefix.length).trim().split(' ');
 const command = args.shift().toLowerCase();
