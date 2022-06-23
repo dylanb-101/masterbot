@@ -25,11 +25,15 @@ const eventFiles = fs.readdirSync('./events').filter((file) => file.endsWith('.j
 
 for (const file of eventFiles) {
 	const event = require(`./events/${file}`);
-	if (event.once) {
+	if (event.once && event.type == 'discordJS') {
 		client.once(event.name, (...args) => event.execute(...args));
-	} else {
+	} else if(event.type == 'discordJS') {
 		client.on(event.name, (...args) => event.execute(...args));
-	} 
+	} else if(event.once && event.type == 'distube') {
+		distube.once(event.name, (...args) => event.execute(...args));
+	} else if(event.type == 'distube') {
+		distube.on(event.name, (...args) => event.execute(...args));
+	}
 }
 
 
@@ -84,7 +88,7 @@ client.on('ready', function() {
   client.user.setActivity(config.activity, { type: 'STREAMING' });
 });
 
-//distube start
+
 client.on('messageCreate', async message => {
 if (message.author.bot || !message.guild || !message.content.startsWith(prefix) || message.author.id == '741343008145801307') return;
 
@@ -148,25 +152,9 @@ if (command === 'play') {
 
 
 });
-//distube events 
-distube
-    .on("playSong", (queue, song) =>
-        queue.textChannel.send(
-            `<:music:928865296104689685> playing \`${song.name}\` - \`${song.formattedDuration}\`\nRequested by: ${
-                song.user}`
-        )
-    )
-    .on("addSong", (queue, song) =>
-        queue.textChannel.send(
-            `📈 added ${song.name} - \`${song.formattedDuration}\` to the queue by ${song.user}`
-        )
-    )
-    .on("searchNoResult", (message, query) => message.channel.send(":skull: couldnt find:" + query))
-    .on("error", (channel, e) => {
-        channel.send(`:skull: got an error: ${e.toString().slice(0, 1974)}`);
-        console.error(e);
-    })
-    .on("finish", queue => queue.textChannel.send("Finished!"));
+
+
+
 
 //logs messages
 client.on('messageCreate', async message => {
@@ -174,32 +162,13 @@ client.on('messageCreate', async message => {
   if (!client.application?.owner) await client.application?.fetch();
   console.log(`User ${message.author.tag} in channel ${message.channel.name} said: ` + message.content);
 
- fs.appendFile('chat.log', ("\n" + `User ${message.author.tag} in channel ${message.channel.name} said: ` + message.content), err => {
-  if (err) {
-    console.error(err);
-    return;
-  } 
-//  if (message.author.id == '424028935752515595')
-//  message.channel.send('https://cdn.discordapp.com/attachments/752544235059937363/934120595925401650/video0.mp4');
-  //done!
+ 	fs.appendFile('chat.log', ("\n" + `User ${message.author.tag} in channel ${message.channel.name} said: ` + message.content), err => {
+  		if (err) {
+    		console.error(err);
+    		return;
+  		} 
+	});
 });
-//troll stuff
-
-//if (message.author.id == '424028935752515595') {
-	//	message.channel.send('https://cdn.discordapp.com/attachments/752544235059937363/934120595925401650/video0.mp4');
-	//}
-if (message.author.id == '372866325380595714') {
-	message.react('⬇️')
-}
-});
-
-//mal dc
-
-//client.on('voiceStateUpdate', (newMember) => {
-//	if (newMember.id == '792557819537915954') {
-//		newMember.setChannel(null);
-//	}
-//});
 
 //make sure this is the last thing 
 client.login(token);

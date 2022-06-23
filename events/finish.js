@@ -3,13 +3,13 @@ const { Routes } = require('discord-api-types/v9');
 const { MessageEmbed } = require('discord.js');
 
 module.exports = {
-	name: 'error',
+	name: 'finish',
     type: 'distube',
-	execute(channe, e) {
+	execute(queue) {
         let embed = new MessageEmbed()
-            .setColor('#fc2e0f')
-            .setTitle(`:exclamation: Error:`)
-            .setDescription(`${e}`)
+            .setColor('#09efd8')
+            .setTitle(`:partying_face: Finished:`)
+            .setDescription(`Finished the queue! **/play** to play a new song!`)
         queue.textChannel.send({ embeds: [embed] });
 	},
 };
