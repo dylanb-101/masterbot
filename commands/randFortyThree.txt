@@ -1,0 +1,27 @@
+const { SlashCommandBuilder } = require('@discordjs/builders');
+
+module.exports = {
+	data: new SlashCommandBuilder()
+		.setName('r43')
+		.setDescription('What you looking for?')
+        .addStringOption(option =>
+            option.setName('tag')
+                .setDescription('What do u want to search for?')
+                .setRequired(false)
+            )
+        .addStringOption(option =>
+            option.setName('num')
+                .setDescription('How many do u want to search for?')
+                .setRequired(false)
+            ),
+	async execute(interaction) {
+		const tag = interaction.options.getString('tag');
+        const num = interaction.options.getString('num');
+        if(tag == null) {
+            const random = Math.floor((Math.random() * 1000000) + 1);
+            await interaction.reply({ 
+                content: 
+            })
+        }
+	},
+};

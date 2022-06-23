@@ -1,13 +1,11 @@
-fs = require('fs');
+const fs = require('fs');
 const { Client, Collection, Intents } = require('discord.js');
 const { token } = require('./config.json');
 const config = require('./config.json');
-const myUserId = '84484653687267328';
 const mongoose = require('mongoose');
-const channel = '791118442686185515';
 const DisTube = require('distube');
 const { prefix } = require('./config.json');
-const { MessageEmbed } = require('discord.js');
+const { cookie } = require('./config.json');
 
 
 
@@ -17,12 +15,13 @@ const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_
 
 const distube = new DisTube.default(client, {
 	nsfw: true,
-	searchSongs: 1
+	searchSongs: 1,
+	youtubeCookie: cookie
 });
 
 
 //event handler or just events
-const eventFiles = fs.readdirSync('./events').filter(file => file.endsWith('.js'));
+const eventFiles = fs.readdirSync('./events').filter((file) => file.endsWith('.js'));
 
 for (const file of eventFiles) {
 	const event = require(`./events/${file}`);
@@ -92,51 +91,59 @@ if (message.author.bot || !message.guild || !message.content.startsWith(prefix) 
 const args = message.content.slice(prefix.length).trim().split(' ');
 const command = args.shift().toLowerCase();
 
-//distuve commands
+
+
+
+//distube commands
 if (command === 'play') {
-	if (!message.member.voice.channel) {
-		return message.channel.send(`:skull: get in a vc `);
-	}
-	if (args == '') {
-		return message.channel.send(`:skull: bozo forgor the song `);
-	}
-	distube.play(message, args.join(' '));
+	
+	return message.channel.send(`:warning:only nerds use these old commands :nerd: use **/play** to be sexy `)
+	//if (!message.member.voice.channel) {
+	//	return message.channel.send(`:skull: get in a vc `);
+	//}
+	//if (args == null) {
+	//	return message.channel.send(`:skull: bozo forgor the song `);
+	//}
+	//distube.play(message, args.join(' '));
 //	message.channel.send(`<:music:928865296104689685> playing: ${song.name}`);
 } else if (command === 'queue' || command === 'q') {
-	const queue = distube.getQueue(message);
-    if (!queue) return message.channel.send(`:skull: queue is empty`);
-	const q = queue.songs
-		.map((song, i) => `${i === 0 ? "Playing:" : `${i}.`} ${song.name} - \`${song.formattedDuration}\``)
-		.join("------\n");
-		message.channel.send(`📆 **Queue**\n${q}`);
+	//const queue = distube.getQueue(message);
+    //if (!queue) return message.channel.send(`:skull: queue is empty`);
+	//const q = queue.songs
+	//	.map((song, i) => `${i === 0 ? "Playing:" : `${i}.`} ${song.name} - \`${song.formattedDuration}\``)
+	//	.join("------\n");
+	//	message.channel.send(`📆 **Queue**\n${q}`);
+	return message.channel.send(`:warning:only nerds use these old commands :nerd: use **/queue** to be sexy`)
 } else if (command === 'skip' || command === 's') {
-	const queue = distube.getQueue(message);
-	if (!queue) return message.channel.send(`:skull: maybe add something to the queue first`);
-	try {
-		const song = await queue.skip();
-		message.channel.send(`⏭️ skipped now im playing:\n${song.name}`);
-	} catch (e) {
-		message.channel.send(`:skull: wtf did u do: ${e}`);
-	}
+	//const queue = distube.getQueue(message);
+	//if (!queue) return message.channel.send(`:skull: maybe add something to the queue first`);
+	//try {
+	//	const song = await queue.skip();
+	//	message.channel.send(`⏭️ skipped now im playing:\n${song.name}`);
+	//} catch (e) {
+	//	message.channel.send(`:skull: wtf did u do: ${e}`);
+	//}
+	return message.channel.send(`:warning:only nerds use these old commands :nerd: use **/skip** to be sexy`)
 } else if (command === 'disconnect' || command === 'dc') {
-	distube.voices.leave(message);
-	message.channel.send(`👋cya later bozos`);
+	//distube.voices.leave(message);
+	//message.channel.send(`👋cya later bozos`);
+	return message.channel.send(`:warning:only nerds use these old commands :nerd: use **/dc** to be sexy`)
 } else if (command === 'loop' || command === 'l') {
-	const queue = distube.getQueue(message);
-	distube.setRepeatMode(queue);
-	const rptMode = () => {
-		let mode = queue.repeatMode;
-		if (mode == '0') {
-			return 'None!'
-		} else if (mode == '1') {
-			return 'Repeat current song!'
-		} else if (mode == '2') {
-			return 'Repeating the queue!'
-		} else {
-			return 'idk something tweakin the code';
-		}
-	};
-	message.channel.send(`🔁 Set loop mode to ${rptMode()}`);
+	//const queue = distube.getQueue(message);
+	//distube.setRepeatMode(queue);
+	//const rptMode = () => {
+	//	let mode = queue.repeatMode;
+	//	if (mode == '0') {
+	//		return 'None!'
+	//	} else if (mode == '1') {
+	//		return 'Repeat current song!'
+	//	} else if (mode == '2') {
+	//		return 'Repeating the queue!'
+	//	} else {
+	//		return 'idk something tweakin the code';
+	//	}
+	//};
+	return message.channel.send(`:warning:only nerds use these old commands :nerd: use **/loop** to be sexy`)
 }
 
 

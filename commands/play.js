@@ -1,19 +1,27 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const DisTube = require('distube');
 
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('play')
 		.setDescription('Plays a song')
-        .addStringOption(option => option.setName('song').setDescription('The song to play').setRequired(true)),
-	async execute(interaction, distube, client, Distube) {
-        const music = interaction.options.getString("song").slice(0, 100);
+        .addStringOption(option => 
+			option.setName('song')
+				.setDescription('The song to play')
+				.setRequired(true)
+			),
+	async execute(interaction, client, distube) {
+        const song = interaction.options.getString("song");
         const channel = interaction.member.voice.channel;
 
-        interaction.client.distube.playVoiceChannel(interaction.member.voice.channel, music, {
-			textChannel: interaction.channel,
-			member: interaction.member
-		  });
+        if(!interaction.member.voice.channel) {
+			await interaction.reply({content: ':skull: get in a vc to use this command'})
+		} else {
+			distube.play(channel, song, {
+				member: interaction.member,
+				textChannel: interaction.channel,
+			});
+			await interaction.reply({content: `:thinking: Now trying to play the song...`, ephemeral: false});
+		}
         
 
 	},
