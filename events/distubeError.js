@@ -4,7 +4,7 @@ const { EmbedBuilder } = require('discord.js');
 
 module.exports = {
 	name: 'error',
-    type: 'distube',
+    type: 'music',
 	execute(channe, e) {
         let embed = new EmbedBuilder()
             .setColor('#fc2e0f')

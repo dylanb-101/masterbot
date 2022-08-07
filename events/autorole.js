@@ -1,6 +1,6 @@
 module.exports = {
 	name: 'messageReactionAdd',
-	type: 'discordJS',
+	type: 'music',
 	execute(guildMember) {
 		console.log('poo');
 		guildMember.roles.add(['868999279249866774'])
