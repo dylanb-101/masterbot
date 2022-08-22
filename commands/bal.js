@@ -1,7 +1,7 @@
 const { SlashCommandBuilder } = require('discord.js');
 
 const profileModel = require("../models/profileSchema");
-const { MessageEmbed } = require('discord.js');
+const { EmbedBuilder } = require('discord.js');
 
 
 module.exports = {
@@ -27,7 +27,7 @@ module.exports = {
         wallet = profileData.wallet;
         bank = profileData.bank;
         total = wallet + bank;
-        let balEmbed = new MessageEmbed()
+        let balEmbed = new EmbedBuilder()
         .setColor('#4efc03')
         .setTitle(`${interaction.user.tag}'s Balance is:`)
         .addFields(

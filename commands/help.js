@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('discord.js');
-const { MessageEmbed } = require('discord.js');
+const { EmbedBuilder } = require('discord.js');
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -7,7 +7,7 @@ module.exports = {
 		.setDescription('gets info on all the commands'),
 	async execute(interaction) {
 		
-    let helpEmbed = new MessageEmbed()
+    let helpEmbed = new EmbedBuilder()
     .setColor('#f0ff24')
     .setTitle(`ur welcome`)
     .addFields(

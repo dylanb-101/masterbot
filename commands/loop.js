@@ -14,8 +14,8 @@ module.exports = {
 					{ name: 'Song', value: '1' },
 					{ name: 'Queue', value: '2' }
 				)),
-	async execute(interaction,client, distube) {
-		const queue = distube.getQueue(interaction.guild);
+	async execute(interaction,client) {
+		const queue = client.distube.getQueue(interaction.guild);
 		const rptMode = () => {
 			let mode = queue.repeatMode;
 			if (mode == '0') {
@@ -32,11 +32,11 @@ module.exports = {
             await interaction.reply({ content: `:skull: I'm not in a voice channel!`});
         } else {
 			if(!interaction.options.getString('mode')) {
-            distube.setRepeatMode(queue);
+            client.distube.setRepeatMode(queue);
 			await interaction.reply({ content: `:repeat: Repeat mode set to ${rptMode()}`});
 
         	} else {
-				distube.setRepeatMode(queue, Number(interaction.options.getString('mode')));
+				client.distube.setRepeatMode(queue, Number(interaction.options.getString('mode')));
 				await interaction.reply({ content: `:repeat: Repeat mode set to ${rptMode()}`});
 
 			}

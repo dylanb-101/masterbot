@@ -5,8 +5,8 @@ module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('queue')
 		.setDescription('Gets the current queue!'),
-	async execute(interaction, client, distube) {
-		const queue = distube.getQueue(interaction.guild);
+	async execute(interaction, client) {
+		const queue = client.distube.getQueue(interaction.guild);
         if (!queue) {
             await interaction.reply({ content: ':skull: The queue is empty!', ephemeral: true });
         } else {
