@@ -12,7 +12,7 @@ module.exports = {
             .setDescription(`**${song.name}**  by **${song.uploader.name}** - [${song.formattedDuration}]`)
             .setThumbnail(`https://i.ytimg.com/vi/${song.id}/hqdefault.jpg`)
             .setAuthor(`Requested by: ${song.user.tag}`)
-            .setURL(song.url)
+            .setURL(song.url);
         queue.textChannel.send({ embeds: [embed] });
 	},
 };

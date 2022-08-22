@@ -5,11 +5,18 @@ const { EmbedBuilder } = require('discord.js');
 module.exports = {
 	name: 'error',
     type: 'music',
-	execute(channe, e) {
+	execute(channel, err) {
         let embed = new EmbedBuilder()
             .setColor('#fc2e0f')
             .setTitle(`:exclamation: Error:`)
-            .setDescription(`${e}`)
-        queue.textChannel.send({ embeds: [embed] });
+            .setDescription(`${err}`);
+            
+        if (channel) {
+            channel.send({ embeds: [embed] });
+            console.log(err);
+        } else {
+            console.log(err);
+        }
+        
 	},
 };

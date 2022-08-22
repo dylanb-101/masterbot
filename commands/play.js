@@ -1,4 +1,5 @@
 const { SlashCommandBuilder } = require('discord.js');
+const { EmbedBuilder } = require('discord.js');
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -9,30 +10,35 @@ module.exports = {
 				.setDescription('The song to play')
 				.setRequired(true)
 			),
-	async execute(interaction, client, fs, player) {
+	async execute(interaction, client, fs) {
         const song = interaction.options.getString("song");
         const channel = interaction.member.voice.channel;
 
         if(!channel) {
-			await interaction.reply({content: ':skull: get in a vc to use this command'})
-		} else {
-			try{
-				
-
-				await interaction.reply({content: `:thinking: Now trying to play the song...`, ephemeral: false});
-			} catch(err) {
-				await interaction.reply({content: `:skull: ${err}`, ephemeral: true});
-
-
-				const fileContent = err;
-				const path = `../errors/${Date.now()}.txt`;
-				fs.writeFile(path, fileContent, (err) => {
-					if (err) throw err;
-					console.log(`The file ${path} has been saved!`);
-				});
-			}
+			let embed = new EmbedBuilder()
+            	.setColor('#fc2b28')
+            	.setTitle(`:skull: You need to join a vc first!`);
+			await interaction.reply({ embeds: [embed] });
+			return;
 		}
-        
 
-	},
+		try {
+			client.distube.play(channel, song, {
+				member: interaction.member,
+				textChannel: interaction.channel,
+			});
+			await interaction.reply({ content: `:thinking: Now trying to play the requested song...` });
+		} catch (error) {
+			let embed = new EmbedBuilder()
+				.setColor('#fc2b28')
+				.setTitle(`:skull: Error:`)
+				.setDescription(`${error}`);
+			await interaction.reply({ embeds: [embed] });
+			return;
+		}
+
+	
+		
+		}        
+
 };

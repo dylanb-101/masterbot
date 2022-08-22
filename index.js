@@ -4,11 +4,10 @@ const { token } = require('./config.json');
 const config = require('./config.json');
 const mongoose = require('mongoose');
 
-const { Player } = require("discord-player")
-const { DisTube } = require('distube')
+const { DisTube } = require('distube');
 
 const { YtDlpPlugin } = require("@distube/yt-dlp");
-const { SpotifyPlugin } = require('@distube/spotify')
+const { SpotifyPlugin } = require('@distube/spotify');
 
 const { cookie } = require('./config.json');
 
@@ -31,8 +30,6 @@ client.distube = new DisTube(client, {
 	]
 });
 
-//set up discord-player
-const player = new Player(client);
 
 
 //event handler or just events
@@ -47,7 +44,7 @@ for (const file of eventFiles) {
 	} else if(event.once && event.type == 'distube') {
 		client.distube.once(event.name, (...args) => event.execute(...args));
 	} else if(event.type == 'music') {
-		player.on(event.name, (...args) => event.execute(...args));
+		client.distube.on(event.name, (...args) => event.execute(...args));
 	}
 }
 
@@ -87,7 +84,7 @@ client.on('interactionCreate', async interaction => {
 	if (!command) return;
 
 	try {
-		await command.execute(interaction, client, fs, player);
+		await command.execute(interaction, client, fs);
 	} catch (error) {
 		console.error(error);
 		await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
